@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trịnh Thị Hải Yến</title>
+<title>AntiFan Hải Yến</title>
 <style>
     body {
         margin: 0;
@@ -16,13 +16,45 @@
         font-size: 20px;
         color: #ff1493;
     }
+
+    .name-animation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        color: #000;
+        opacity: 0;
+        animation: zoomIn 2s forwards;
+        font-family: 'Dancing Script', cursive; 
+    }
+
+    @keyframes zoomIn {
+        from {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
 </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap">
 </head>
 <body>
 <script>
+    let likeCount = 0; 
+
     function createLike() {
+        if (likeCount >= 100) {
+            clearInterval(likeInterval); 
+            showNameAnimation();
+            return;
+        }
+
         const like = document.createElement('div');
-        like.textContent = 'Hải Yến là con 🐶';
+        like.textContent = 'Yến 🐶';
         like.classList.add('like');
 
         let x, y;
@@ -41,6 +73,8 @@
 
         document.body.appendChild(like);
 
+        likeCount++;
+
         like.addEventListener('animationend', () => {
             like.remove();
         });
@@ -52,7 +86,7 @@
             const rect1 = {
                 x: x,
                 y: y,
-                width: 20, 
+                width: 20,
                 height: 20 
             };
             const rect2 = like.getBoundingClientRect();
@@ -66,7 +100,14 @@
         return false;
     }
 
-    setInterval(createLike, 200);
+    function showNameAnimation() {
+        const nameAnimation = document.createElement('div');
+        nameAnimation.textContent = 'Anh xin lỗi Yến :))';
+        nameAnimation.classList.add('name-animation');
+        document.body.appendChild(nameAnimation);
+    }
+
+    const likeInterval = setInterval(createLike, 200);
 </script>
 </body>
 </html>
